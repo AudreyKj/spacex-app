@@ -28,7 +28,6 @@ function LaunchesData(props) {
       .get("https://api.spacexdata.com/v4/launches")
       .then(res => {
         console.log("res.data", res.data);
-        //throw new Error();
         setLoading(false);
         setHistory(res.data);
         setData(res.data);
@@ -173,11 +172,16 @@ function LaunchesData(props) {
 
   return (
     <section className="launchesData">
-      {modal && (
-        <div className="modal">
-          <DataViz props={data} />
-        </div>
-      )}
+      <div className="intro">
+        <p>
+          SpaceX designs, manufactures and launches advanced rockets and
+          spacecraft. <br /> <br /> See on the right a data visualization of the
+          company's successful and failed launches. Search for information about
+          SpaceX's launches below.
+        </p>
+        {data && <DataViz props={data} />}
+      </div>
+
       {loading && (
         <span className="loading" data-testid="loading">
           Loading...
@@ -191,7 +195,6 @@ function LaunchesData(props) {
       )}
       {data && (
         <div className="search-filter">
-          visualize the data <span onClick={visualize}> here </span>
           <div className="search">
             <form className="search">
               <label>

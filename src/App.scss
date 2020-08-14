@@ -209,14 +209,33 @@ img.ship-image {
   width: 65%;
 }
 
-/* MODAL */
-div.modal {
-  width: 70%;
-  height: 90%;
-  position: absolute;
+/* INFO */
+div.intro {
+  @include center(row);
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid $lightgrey;
+  background-color: $lightgrey;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  div.intro {
+    @include center(column);
+  }
+}
+
+p {
+  width: 50%;
 }
 
 div.data-viz {
+  display: flex;
+  justify-content: center;
+}
+
+div.chart {
+  height: 20%;
 }
 
 /* LOADING & ERROR  */

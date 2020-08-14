@@ -16,7 +16,7 @@ function DataViz(props) {
       datasets: [
         {
           data: [failures.length, successes.length],
-          backgroundColor: ["#ff0000", "#228B22"],
+          backgroundColor: ["#ff2700", "#228B22"],
           hoverBackgroundColor: ["#ccc", "#ccc"]
         }
       ]
@@ -25,16 +25,14 @@ function DataViz(props) {
 
   return (
     <div className="data-viz">
-      <div>
-        {info && (
-          <Pie
-            data={info}
-            width={300}
-            height={300}
-            options={{ maintainAspectRatio: false }}
-          />
-        )}
-      </div>
+      {info && (
+        <Pie
+          data={info}
+          width={200}
+          height={200}
+          options={{ maintainAspectRatio: false }}
+        />
+      )}
     </div>
   );
 }
