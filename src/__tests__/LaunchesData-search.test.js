@@ -11,7 +11,7 @@ import {
 
 afterEach(cleanup);
 
-it("displays loading message while retrieving data and displays the data upon success", async () => {
+it("search feature filters data correctly", async () => {
   mockedAxios.get.mockResolvedValueOnce({
     data: [
       {
@@ -29,12 +29,19 @@ it("displays loading message while retrieving data and displays the data upon su
     ]
   });
 
-  const { getByTestId } = render(<LaunchesData />);
-  expect(getByTestId("loading")).toHaveTextContent("Loading...");
+  const { getByTestId, container } = render(<LaunchesData />);
 
   const launchesData = await waitForElement(() => getByTestId("result"));
 
   expect(launchesData.children).toHaveLength(2);
   expect(launchesData).toHaveTextContent("loss of engine");
   expect(mockedAxios.get).toHaveBeenCalledTimes(1);
+
+  const value = "loss";
+  const searchInput = container.querySelector("input.search-feature");
+
+  fireEvent.change(searchInput, { target: { value: value } });
+  fireEvent.click(container.querySelector("button.searchValue"));
+
+  expect(getByTestId("result")).toHaveTextContent("SpaceCraft");
 });

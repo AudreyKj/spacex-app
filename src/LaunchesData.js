@@ -197,7 +197,9 @@ function LaunchesData() {
           <div className="filtering">
             filters:
             <button
-              className={successSelected ? "filter selected" : "filter"}
+              className={
+                successSelected ? "success filter selected" : "success filter"
+              }
               onClick={getSuccess}
             >
               successes
@@ -209,7 +211,11 @@ function LaunchesData() {
               failures
             </button>
             <button
-              className={futureLaunchesSelected ? "filter selected" : "filter"}
+              className={
+                futureLaunchesSelected
+                  ? "upcoming filter selected"
+                  : "upcoming filter"
+              }
               onClick={getFutureLaunches}
             >
               future launches
@@ -223,7 +229,11 @@ function LaunchesData() {
               no future launches
             </button>
             <button
-              className={before2010Selected ? "filter selected" : "filter"}
+              className={
+                before2010Selected
+                  ? "before2010 filter selected"
+                  : "before2010 filter"
+              }
               onClick={getBefore2010}
             >
               before 2010
