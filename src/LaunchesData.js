@@ -5,7 +5,16 @@ import Timestamp from "react-timestamp";
 function LaunchesData() {
   const [data, setData] = useState([]);
   const [history, setHistory] = useState(false);
+  const [reset, setReset] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [successSelected, setSuccessSelected] = useState(false);
+  const [failuresSelected, setFailuresSelected] = useState(false);
+  const [futureLaunchesSelected, setFutureLaunchesSelected] = useState(false);
+  const [noFutureLaunchesSelected, setFutureNoLaunchesSelected] = useState(
+    false
+  );
+  const [before2010Selected, setBefore2010Selected] = useState(false);
+  const [after2010Selected, setAfter2010Selected] = useState(false);
 
   /* eslint-disable */
   //eslint disabled to pass empty array to useEffect
@@ -20,10 +29,51 @@ function LaunchesData() {
       .catch(error => console.log(error));
   }, []);
 
-  //search for info
+  //filtering
+  const getSuccess = () => {
+    console.log("history", history);
+    setReset(true);
+    const successes = data.filter(elem => elem.success);
+    console.log("successes", successes);
+    setData(successes);
+    setSuccessSelected(true);
+  };
+
+  const getFailures = () => {
+    setReset(true);
+
+    const failures = data.filter(elem => elem.success === false);
+    console.log("failures", failures);
+    setData(failures);
+    setFailuresSelected(true);
+  };
+
+  const getNoFutureLaunches = () => {
+    setReset(true);
+
+    const noFutureLaunches = data.filter(elem => elem.upcoming === false);
+
+    console.log("noFutureLaunches", noFutureLaunches);
+    setData(noFutureLaunches);
+    setFutureNoLaunchesSelected(true);
+  };
+
+  const getFutureLaunches = () => {
+    setReset(true);
+
+    const futureLaunches = data.filter(elem => elem.upcoming);
+
+    console.log("futureLaunches", futureLaunches);
+    setData(futureLaunches);
+    setFutureLaunchesSelected(true);
+  };
+
+  console.log("searchValue", searchValue);
+
+  //search in spacecraft's name, date, details
   const getSearchedResults = e => {
     e.preventDefault();
-
+    setReset(true);
     const res = [];
 
     const results = history.filter(elem => {
@@ -50,6 +100,57 @@ function LaunchesData() {
     setData(res);
   };
 
+  const getBefore2010 = () => {
+    setReset(true);
+    const res = [];
+    data.filter(elem => {
+      const date = elem.date_local;
+
+      let year = date.split("-")[0];
+      year = year.slice(0, -1);
+
+      if (year.includes("200")) {
+        res.push(elem);
+      }
+    });
+
+    console.log("res - before 2010", res);
+    setData(res);
+    setBefore2010Selected(true);
+  };
+
+  const getAfter2010 = () => {
+    const res = [];
+    setReset(true);
+    data.filter(elem => {
+      const date = elem.date_local;
+
+      let year = date.split("-")[0];
+      year = year.slice(0, -1);
+
+      if (year.includes("201") || year.includes("202")) {
+        res.push(elem);
+      }
+    });
+
+    console.log("res - after 2010", res);
+    setData(res);
+    setAfter2010Selected(true);
+  };
+
+  //reset results
+  const resetResults = () => {
+    setData(history);
+    setReset(false);
+    setFailuresSelected(false);
+    setSuccessSelected(false);
+    setFutureLaunchesSelected(false);
+    setFutureNoLaunchesSelected(false);
+    setBefore2010Selected(false);
+    setAfter2010Selected(false);
+    setSearchValue("");
+  };
+
   return (
     <section className="launchesData">
       <div className="search-filter">
@@ -68,6 +169,50 @@ function LaunchesData() {
             </label>
             <button onClick={getSearchedResults}> SEARCH </button>
           </form>
+        </div>
+        <div className="filtering">
+          filters:
+          <button
+            className={successSelected ? "filter selected" : "filter"}
+            onClick={getSuccess}
+          >
+            successes
+          </button>
+          <button
+            className={failuresSelected ? "filter selected" : "filter"}
+            onClick={getFailures}
+          >
+            failures
+          </button>
+          <button
+            className={futureLaunchesSelected ? "filter selected" : "filter"}
+            onClick={getFutureLaunches}
+          >
+            future launches
+          </button>
+          <button
+            className={noFutureLaunchesSelected ? "filter selected" : "filter"}
+            onClick={getNoFutureLaunches}
+          >
+            no future launches
+          </button>
+          <button
+            className={before2010Selected ? "filter selected" : "filter"}
+            onClick={getBefore2010}
+          >
+            before 2010
+          </button>
+          <button
+            className={after2010Selected ? "filter selected" : "filter"}
+            onClick={getAfter2010}
+          >
+            after 2010
+          </button>
+          {reset && (
+            <button className="reset" onClick={resetResults}>
+              reset
+            </button>
+          )}
         </div>
       </div>
 
