@@ -229,6 +229,13 @@ p {
   width: 50%;
 }
 
+@media (max-width: 600px) {
+  p {
+    width: 70%;
+    text-align: center;
+  }
+}
+
 div.data-viz {
   display: flex;
   justify-content: center;
