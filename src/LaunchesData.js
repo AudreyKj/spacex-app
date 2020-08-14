@@ -81,6 +81,11 @@ function LaunchesData() {
   //search in spacecraft's name, date, details
   const getSearchedResults = e => {
     e.preventDefault();
+
+    if (!searchValue || searchValue.length === 0 || searchValue.length === 1) {
+      return;
+    }
+
     setReset(true);
     const res = [];
 
@@ -175,7 +180,7 @@ function LaunchesData() {
       {data && (
         <div className="search-filter">
           <div className="search">
-            <form className="searchApps">
+            <form className="search">
               <label>
                 search:
                 <input
@@ -270,11 +275,13 @@ function LaunchesData() {
                     options={{ includeDay: false, twentyFourHour: false }}
                   />
                 </span>
+
                 <span className="details">
                   {launch.success
                     ? "Launch was successful"
-                    : "Launch failed or did not occur yet"}
+                    : "Launch classified as failure"}
                 </span>
+
                 <span className="details">
                   {launch.upcoming
                     ? "Upcoming launches planned"
@@ -293,7 +300,9 @@ function LaunchesData() {
               <img
                 className="ship-image"
                 src={
-                  launch.links ? launch.links.patch.small : "image-default.jpg"
+                  launch.links && launch.links.patch.small
+                    ? launch.links.patch.small
+                    : "image-default.jpg"
                 }
                 alt="ship-image"
               />

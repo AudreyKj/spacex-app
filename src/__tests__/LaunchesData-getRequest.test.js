@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import LaunchesData from "../LaunchesData.js";
 import mockedAxios from "axios";
 import {

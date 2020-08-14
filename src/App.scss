@@ -1,9 +1,56 @@
+@import-normalize;
+
 @import url("https://fonts.googleapis.com/css2?family=Questrial&family=Roboto&display=swap");
+
 $red: #ff2700;
+$blue: #3f51b5;
+$black: #333;
+$white: #fff;
+$grey: #6d6d6d;
+$lightgrey: #d3d3d3;
+
+@mixin center($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+}
+
+@mixin button($backgroundColor, $color) {
+  letter-spacing: 0.04em;
+  min-width: 1.5em;
+  border-radius: 10em;
+  background-color: $backgroundColor;
+  color: $color;
+  border: 1px solid #333;
+  text-transform: uppercase;
+  margin: 0.5em 0.5em;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
 
 body {
   font-family: "Questrial", "Roboto", sans-serif;
   font-size: 1.2rem;
+  color: $black;
+}
+
+@media (min-width: 1900px) {
+  body {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    font-size: 0.9rem;
+  }
 }
 
 div.App {
@@ -11,6 +58,18 @@ div.App {
 }
 
 /* APP: HEADER */
+@media (max-width: 500px) {
+  h6.title {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 350px) {
+  h6.title {
+    font-size: 0.8rem;
+  }
+}
+
 span.nav-about {
   position: absolute;
   right: 20px;
@@ -19,16 +78,21 @@ span.nav-about {
 /* SEARCH & FILTERING */
 div.search,
 div.filtering {
-  margin-top: 45px;
-  display: flex;
-  justify-content: center;
+  @include center(row);
   width: 100%;
+}
+
+@media (max-width: 400px) {
+  form.search {
+    @include center(column);
+  }
 }
 
 div.search-filter {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 50px 0;
 }
 
 form.searchApps {
@@ -38,47 +102,43 @@ form.searchApps {
 input[type="text"].search-feature {
   margin-left: 5px;
   padding: 5px;
+  border: 1px solid rgba(51, 51, 51, 0.61);
 }
 
 button.searchValue {
   margin-left: 15px;
+
+  cursor: pointer;
+  font-size: 0.9rem;
+  background: transparent;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+@media (max-width: 400px) {
+  button.searchValue {
+    margin-top: 15px;
+  }
 }
 
 div.filtering {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
   width: 100%;
+  margin-top: 20px;
+  @include center(row);
+  flex-wrap: wrap;
 }
 
-button.filter {
-  letter-spacing: 0.04em;
-  min-width: 1.5em;
-  border-radius: 10em;
-
-  border: 1px solid #333;
-  text-transform: uppercase;
-  margin: 0.5em 0.5em;
-  padding: 0.4em 0.8em 0.2em;
-  cursor: pointer;
+.filter {
+  @include button($lightgrey, $black);
 }
 
 .selected {
-  background: #3f51b5;
-  color: #fff;
+  background: $blue;
+  color: $white;
 }
 
 button.reset {
-  letter-spacing: 0.04em;
-  min-width: 1.5em;
-  border-radius: 10em;
-  background: #333;
-  color: #fff;
-  border: 1px solid transparent;
-  text-transform: uppercase;
-  margin: 0.5em 0.5em;
-  padding: 0.4em 0.8em 0.2em;
-  cursor: pointer;
+  @include button($black, $white);
 }
 
 div.filtering {
@@ -87,18 +147,21 @@ div.filtering {
 }
 
 /* SPACEX DATA */
-div.result {
-  margin-top: 50px;
-}
 div.details {
   width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @include center(column);
 }
+
+@media (max-width: 700px) {
+  div.details {
+    width: 60%;
+  }
+}
+
 span.details {
   display: block;
   margin-bottom: 5px;
+  word-break: break-word;
 }
 
 .name {
@@ -108,13 +171,12 @@ span.details {
 a.details,
 a.details:hover,
 a.details:visited {
-  color: #3f51b5;
+  color: $blue;
 }
 
 div.launch {
-  display: flex;
-  justify-content: center;
-  border: 1px solid #6d6d6d;
+  @include center(row);
+  border: 1px solid $grey;
   border-bottom: none;
   border-left: none;
   border-right: none;
@@ -127,6 +189,18 @@ img.ship-image {
   object-fit: contain;
 }
 
+@media (max-width: 920px) {
+  img.ship-image {
+    width: 15%;
+  }
+}
+
+@media (max-width: 700px) {
+  img.ship-image {
+    width: 25%;
+  }
+}
+
 .info {
   font-style: italic;
   width: 65%;
@@ -135,30 +209,12 @@ img.ship-image {
 /* LOADING & ERROR  */
 span.loading,
 span.error {
-  display: inline-block;
   width: 100%;
+  display: inline-block;
   margin-top: 20px;
   text-align: center;
 }
 
 span.error {
   color: $red;
-}
-
-/* FOOTER */
-footer {
-  margin-top: auto;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin-top: 45px;
-  height: 40px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  color: #333;
-  justify-content: center;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.9),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }

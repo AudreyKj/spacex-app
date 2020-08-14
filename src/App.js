@@ -11,14 +11,14 @@ function App() {
       <header>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6">SPACEX SPACECRAFT LAUNCHES</Typography>
+            <Typography variant="h6" className="title">
+              SPACEX SPACECRAFTS
+            </Typography>
             <span className="nav-about">about</span>
           </Toolbar>
         </AppBar>
       </header>
       <LaunchesData />
-
-      <footer>SpaceX spacecraft app © 2020</footer>
     </div>
   );
 }
