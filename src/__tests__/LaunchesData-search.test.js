@@ -17,7 +17,7 @@ it("search feature filters data correctly", async () => {
       {
         id: "1234566",
         date_local: "2006-03-25T10:30:00+12:00",
-        name: "SpaceCraft",
+        name: "Dream87",
         details: "loss of engine"
       },
       {
@@ -34,7 +34,6 @@ it("search feature filters data correctly", async () => {
   const launchesData = await waitForElement(() => getByTestId("result"));
 
   expect(launchesData.children).toHaveLength(2);
-  expect(launchesData).toHaveTextContent("loss of engine");
   expect(mockedAxios.get).toHaveBeenCalledTimes(1);
 
   const value = "loss";
@@ -43,5 +42,5 @@ it("search feature filters data correctly", async () => {
   fireEvent.change(searchInput, { target: { value: value } });
   fireEvent.click(container.querySelector("button.searchValue"));
 
-  expect(getByTestId("result")).toHaveTextContent("SpaceCraft");
+  expect(getByTestId("result")).toHaveTextContent("Dream87");
 });
