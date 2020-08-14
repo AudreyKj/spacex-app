@@ -1,15 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Roboto&display=swap");
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Questrial", "Roboto", sans-serif;
   font-size: 1.2rem;
 }
 
-/* SEARCH APPS */
-div.search {
+div.App {
+  min-height: 100vh;
+}
+
+/* APP: HEADER */
+span.nav-about {
+  position: absolute;
+  right: 20px;
+}
+
+/* SEARCH & FILTERING */
+div.search,
+div.filtering {
   margin-top: 45px;
   display: flex;
   justify-content: center;
   width: 100%;
 }
+
+div.search-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div.filtering {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 form.searchApps {
   display: flex;
 }
@@ -19,15 +46,101 @@ input[type="text"] {
   padding: 5px;
 }
 
-img.ship-image {
-  width: 15%;
-  height: auto;
+button.filter {
+  letter-spacing: 0.04em;
+  min-width: 1.5em;
+  border-radius: 10em;
+
+  border: 1px solid #333;
+  text-transform: uppercase;
+  margin: 0.5em 0.5em;
+  padding: 0.4em 0.8em 0.2em;
+  cursor: pointer;
 }
 
+.selected {
+  background: #3f51b5;
+  color: #fff;
+}
+
+button.reset {
+  letter-spacing: 0.04em;
+  min-width: 1.5em;
+  border-radius: 10em;
+  background: #333;
+  color: #fff;
+  border: 1px solid transparent;
+  text-transform: uppercase;
+  margin: 0.5em 0.5em;
+  padding: 0.4em 0.8em 0.2em;
+  cursor: pointer;
+}
+
+div.filtering {
+  display: flex;
+  align-items: center;
+}
+
+/* SPACEX DATA */
+div.result {
+  margin-top: 50px;
+}
+div.details {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 span.details {
   display: block;
+  margin-bottom: 5px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+a.details,
+a.details:hover,
+a.details:visited {
+  color: #3f51b5;
 }
 
 div.launch {
   display: flex;
+  justify-content: center;
+  border: 1px solid #6d6d6d;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  padding: 15px 0;
+}
+
+img.ship-image {
+  width: 10%;
+  height: auto;
+  object-fit: contain;
+}
+
+.info {
+  font-style: italic;
+  width: 65%;
+}
+
+/* FOOTER */
+footer {
+  margin-top: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: 45px;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: #333;
+  justify-content: center;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.9),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
