@@ -19,8 +19,6 @@ function LaunchesData(props) {
   const [before2010Selected, setBefore2010Selected] = useState(false);
   const [after2010Selected, setAfter2010Selected] = useState(false);
 
-  const [modal, setModal] = useState(false);
-
   /* eslint-disable */
   //eslint disabled to pass empty array to useEffect
   useEffect(() => {
