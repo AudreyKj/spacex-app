@@ -3,7 +3,9 @@ import axios from "axios";
 import Timestamp from "react-timestamp";
 
 function LaunchesData() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [history, setHistory] = useState(false);
   const [reset, setReset] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -23,10 +25,16 @@ function LaunchesData() {
       .get("https://api.spacexdata.com/v4/launches")
       .then(res => {
         console.log("res.data", res.data);
+        //throw new Error();
+        setLoading(false);
         setHistory(res.data);
         setData(res.data);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        setLoading(false);
+        setError(true);
+        console.log(error);
+      });
   }, []);
 
   //filtering
@@ -153,73 +161,96 @@ function LaunchesData() {
 
   return (
     <section className="launchesData">
-      <div className="search-filter">
-        <div className="search">
-          <form className="searchApps">
-            <label>
-              search:
-              <input
-                type="text"
-                name="launches"
-                value={searchValue}
-                onChange={({ target }) => {
-                  setSearchValue(target.value);
-                }}
-              />
-            </label>
-            <button onClick={getSearchedResults}> SEARCH </button>
-          </form>
-        </div>
-        <div className="filtering">
-          filters:
-          <button
-            className={successSelected ? "filter selected" : "filter"}
-            onClick={getSuccess}
-          >
-            successes
-          </button>
-          <button
-            className={failuresSelected ? "filter selected" : "filter"}
-            onClick={getFailures}
-          >
-            failures
-          </button>
-          <button
-            className={futureLaunchesSelected ? "filter selected" : "filter"}
-            onClick={getFutureLaunches}
-          >
-            future launches
-          </button>
-          <button
-            className={noFutureLaunchesSelected ? "filter selected" : "filter"}
-            onClick={getNoFutureLaunches}
-          >
-            no future launches
-          </button>
-          <button
-            className={before2010Selected ? "filter selected" : "filter"}
-            onClick={getBefore2010}
-          >
-            before 2010
-          </button>
-          <button
-            className={after2010Selected ? "filter selected" : "filter"}
-            onClick={getAfter2010}
-          >
-            after 2010
-          </button>
-          {reset && (
-            <button className="reset" onClick={resetResults}>
-              reset
-            </button>
-          )}
-        </div>
-      </div>
+      {loading && (
+        <span className="loading" data-testid="loading">
+          Loading...
+        </span>
+      )}
 
-      <div className="result">
+      {error && (
+        <span className="error">
+          Error in retrieving the data: please try again later!
+        </span>
+      )}
+      {data && (
+        <div className="search-filter">
+          <div className="search">
+            <form className="searchApps">
+              <label>
+                search:
+                <input
+                  type="text"
+                  name="launches"
+                  className="search-feature"
+                  data-testid="search"
+                  value={searchValue}
+                  onChange={({ target }) => {
+                    setSearchValue(target.value);
+                  }}
+                />
+              </label>
+              <button className="searchValue" onClick={getSearchedResults}>
+                SEARCH
+              </button>
+            </form>
+          </div>
+          <div className="filtering">
+            filters:
+            <button
+              className={successSelected ? "filter selected" : "filter"}
+              onClick={getSuccess}
+            >
+              successes
+            </button>
+            <button
+              className={failuresSelected ? "filter selected" : "filter"}
+              onClick={getFailures}
+            >
+              failures
+            </button>
+            <button
+              className={futureLaunchesSelected ? "filter selected" : "filter"}
+              onClick={getFutureLaunches}
+            >
+              future launches
+            </button>
+            <button
+              className={
+                noFutureLaunchesSelected ? "filter selected" : "filter"
+              }
+              onClick={getNoFutureLaunches}
+            >
+              no future launches
+            </button>
+            <button
+              className={before2010Selected ? "filter selected" : "filter"}
+              onClick={getBefore2010}
+            >
+              before 2010
+            </button>
+            <button
+              className={after2010Selected ? "filter selected" : "filter"}
+              onClick={getAfter2010}
+            >
+              after 2010
+            </button>
+            {reset && (
+              <button className="reset" onClick={resetResults}>
+                reset
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      <div className="result" data-testid="result">
         {data &&
           data.map(launch => (
-            <div className="launch" key={launch.id + Math.random()}>
+            <div
+              className="launch"
+              key={launch.id + Math.random()}
+              data-testid="launch"
+            >
               <div className="details">
                 <span className="details name"> {launch.name} </span>
                 <span className="details">
@@ -241,17 +272,19 @@ function LaunchesData() {
                 </span>
                 <span className="details info"> {launch.details} </span>
 
-                {launch.links.article ? (
+                {launch.links ? (
                   <a className="details" href={launch.links.article}>
                     Link to article
                   </a>
                 ) : (
-                  ""
+                  "No article available"
                 )}
               </div>
               <img
                 className="ship-image"
-                src={launch.links.patch.small || "image-default.jpg"}
+                src={
+                  launch.links ? launch.links.patch.small : "image-default.jpg"
+                }
                 alt="ship-image"
               />
             </div>

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Questrial&family=Roboto&display=swap");
+$red: #ff2700;
 
 body {
   font-family: "Questrial", "Roboto", sans-serif;
@@ -30,20 +31,24 @@ div.search-filter {
   align-items: center;
 }
 
+form.searchApps {
+  display: flex;
+}
+
+input[type="text"].search-feature {
+  margin-left: 5px;
+  padding: 5px;
+}
+
+button.searchValue {
+  margin-left: 15px;
+}
+
 div.filtering {
   margin-top: 20px;
   display: flex;
   justify-content: center;
   width: 100%;
-}
-
-form.searchApps {
-  display: flex;
-}
-
-input[type="text"] {
-  margin-left: 5px;
-  padding: 5px;
 }
 
 button.filter {
@@ -125,6 +130,19 @@ img.ship-image {
 .info {
   font-style: italic;
   width: 65%;
+}
+
+/* LOADING & ERROR  */
+span.loading,
+span.error {
+  display: inline-block;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+}
+
+span.error {
+  color: $red;
 }
 
 /* FOOTER */
