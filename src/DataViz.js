@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Bar, Line, Pie, Doughnut } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 
 function DataViz(props) {
   const [info, setInfo] = useState(false);

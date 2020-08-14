@@ -27,7 +27,6 @@ function LaunchesData(props) {
     axios
       .get("https://api.spacexdata.com/v4/launches")
       .then(res => {
-        console.log("res.data", res.data);
         setLoading(false);
         setHistory(res.data);
         setData(res.data);
@@ -35,7 +34,6 @@ function LaunchesData(props) {
       .catch(error => {
         setLoading(false);
         setError(true);
-        console.log(error);
       });
   }, []);
 
@@ -45,10 +43,9 @@ function LaunchesData(props) {
 
   //filtering
   const getSuccess = () => {
-    console.log("history", history);
     setReset(true);
     const successes = data.filter(elem => elem.success);
-    console.log("successes", successes);
+
     setData(successes);
     setSuccessSelected(true);
   };
@@ -57,7 +54,7 @@ function LaunchesData(props) {
     setReset(true);
 
     const failures = data.filter(elem => elem.success === false);
-    console.log("failures", failures);
+
     setData(failures);
     setFailuresSelected(true);
   };
@@ -67,7 +64,6 @@ function LaunchesData(props) {
 
     const noFutureLaunches = data.filter(elem => elem.upcoming === false);
 
-    console.log("noFutureLaunches", noFutureLaunches);
     setData(noFutureLaunches);
     setFutureNoLaunchesSelected(true);
   };
@@ -77,14 +73,11 @@ function LaunchesData(props) {
 
     const futureLaunches = data.filter(elem => elem.upcoming);
 
-    console.log("futureLaunches", futureLaunches);
     setData(futureLaunches);
     setFutureLaunchesSelected(true);
   };
 
-  console.log("searchValue", searchValue);
-
-  //search in spacecraft's name, date, details
+  //search
   const getSearchedResults = e => {
     e.preventDefault();
 
@@ -115,7 +108,6 @@ function LaunchesData(props) {
       }
     });
 
-    console.log("res", res);
     setData(res);
   };
 
@@ -133,7 +125,6 @@ function LaunchesData(props) {
       }
     });
 
-    console.log("res - before 2010", res);
     setData(res);
     setBefore2010Selected(true);
   };
@@ -152,7 +143,6 @@ function LaunchesData(props) {
       }
     });
 
-    console.log("res - after 2010", res);
     setData(res);
     setAfter2010Selected(true);
   };
