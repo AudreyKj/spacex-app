@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -14,10 +14,10 @@ function App() {
             <Typography variant="h6" className="title">
               SPACEX SPACECRAFTS
             </Typography>
-            <span className="nav-about">about</span>
           </Toolbar>
         </AppBar>
       </header>
+
       <LaunchesData />
     </div>
   );

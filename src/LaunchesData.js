@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Timestamp from "react-timestamp";
+import DataViz from "./DataViz";
 
-function LaunchesData() {
+function LaunchesData(props) {
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -17,6 +18,8 @@ function LaunchesData() {
   );
   const [before2010Selected, setBefore2010Selected] = useState(false);
   const [after2010Selected, setAfter2010Selected] = useState(false);
+
+  const [modal, setModal] = useState(false);
 
   /* eslint-disable */
   //eslint disabled to pass empty array to useEffect
@@ -36,6 +39,10 @@ function LaunchesData() {
         console.log(error);
       });
   }, []);
+
+  const visualize = () => {
+    setModal(true);
+  };
 
   //filtering
   const getSuccess = () => {
@@ -166,6 +173,11 @@ function LaunchesData() {
 
   return (
     <section className="launchesData">
+      {modal && (
+        <div className="modal">
+          <DataViz props={data} />
+        </div>
+      )}
       {loading && (
         <span className="loading" data-testid="loading">
           Loading...
@@ -179,6 +191,7 @@ function LaunchesData() {
       )}
       {data && (
         <div className="search-filter">
+          visualize the data <span onClick={visualize}> here </span>
           <div className="search">
             <form className="search">
               <label>
@@ -289,8 +302,13 @@ function LaunchesData() {
                 </span>
                 <span className="details info"> {launch.details} </span>
 
-                {launch.links ? (
-                  <a className="details" href={launch.links.article}>
+                {launch.links && launch.links.article ? (
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="details"
+                    href={launch.links.article}
+                  >
                     Link to article
                   </a>
                 ) : (
