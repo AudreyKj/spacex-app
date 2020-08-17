@@ -29,6 +29,3 @@ The app's components and main features have been all tested with Jest. <br/>
 
 **Stack**: SASS/SCSS, JavaScript, React, React Hooks, chart.js, Jest
 
-## Visual
-
-![screenshot](img.png)
