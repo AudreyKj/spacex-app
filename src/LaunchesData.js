@@ -3,7 +3,7 @@ import axios from "axios";
 import Timestamp from "react-timestamp";
 import DataViz from "./DataViz";
 
-function LaunchesData(props) {
+function LaunchesData() {
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);

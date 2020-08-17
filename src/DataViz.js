@@ -21,7 +21,7 @@ function DataViz(props) {
         }
       ]
     });
-  }, [props.data, props.success, props.failures]);
+  }, []);
 
   return (
     <div className="data-viz">
