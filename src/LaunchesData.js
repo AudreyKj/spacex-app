@@ -35,10 +35,6 @@ function LaunchesData() {
       });
   }, []);
 
-  const visualize = () => {
-    setModal(true);
-  };
-
   //filtering
   const getSuccess = () => {
     setReset(true);
@@ -73,40 +69,6 @@ function LaunchesData() {
 
     setData(futureLaunches);
     setFutureLaunchesSelected(true);
-  };
-
-  //search
-  const getSearchedResults = e => {
-    e.preventDefault();
-
-    if (!searchValue || searchValue.length === 0 || searchValue.length === 1) {
-      return;
-    }
-
-    setReset(true);
-    const res = [];
-
-    const results = history.filter(elem => {
-      const name = elem.name;
-      if (name.split(" ").includes(searchValue)) {
-        res.push(elem);
-      }
-
-      const date = elem.date_local;
-
-      if (date.split("-").includes(searchValue)) {
-        res.push(elem);
-      }
-
-      if (elem.details) {
-        const details = elem.details;
-        if (details.split(" ").includes(searchValue)) {
-          res.push(elem);
-        }
-      }
-    });
-
-    setData(res);
   };
 
   const getBefore2010 = () => {
@@ -156,6 +118,40 @@ function LaunchesData() {
     setBefore2010Selected(false);
     setAfter2010Selected(false);
     setSearchValue("");
+  };
+
+  //search
+  const getSearchedResults = e => {
+    e.preventDefault();
+
+    if (!searchValue || searchValue.length === 0 || searchValue.length === 1) {
+      return;
+    }
+
+    setReset(true);
+    const res = [];
+
+    const results = history.filter(elem => {
+      const name = elem.name;
+      if (name.split(" ").includes(searchValue)) {
+        res.push(elem);
+      }
+
+      const date = elem.date_local;
+
+      if (date.split("-").includes(searchValue)) {
+        res.push(elem);
+      }
+
+      if (elem.details) {
+        const details = elem.details;
+        if (details.split(" ").includes(searchValue)) {
+          res.push(elem);
+        }
+      }
+    });
+
+    setData(res);
   };
 
   return (
