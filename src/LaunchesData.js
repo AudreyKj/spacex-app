@@ -277,9 +277,11 @@ function LaunchesData() {
                 </span>
 
                 <span className="details">
-                  {launch.success
-                    ? "Launch was successful"
-                    : "Launch classified as failure"}
+                  {launch.success === null
+                    ? "launch did not happen yet"
+                    : launch.succcess === false || !launch.success
+                    ? "launch failed"
+                    : "launch was successful"}
                 </span>
 
                 <span className="details">
