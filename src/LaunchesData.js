@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Timestamp from "react-timestamp";
 import { useSelector, useDispatch } from "react-redux";
-import { getData, getSuccess } from "./action.js";
 import DataViz from "./DataViz.js";
 
 function LaunchesData() {
@@ -11,6 +9,7 @@ function LaunchesData() {
   const [error, setError] = useState(false);
   const [history, setHistory] = useState(false);
   const [reset, setReset] = useState(false);
+  const [resetResultsOn, setResetResultsOn] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [successSelected, setSuccessSelected] = useState(false);
   const [failuresSelected, setFailuresSelected] = useState(false);
@@ -27,16 +26,7 @@ function LaunchesData() {
 
   const info = useSelector(state => state.users);
 
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ==
-      document.documentElement.offsetHeight
-    ) {
-      fetchNextResults();
-    } else {
-      return;
-    }
-  };
+  console.log("history", history);
 
   const fetchNextResults = () => {
     const results = [];
@@ -52,10 +42,21 @@ function LaunchesData() {
     setNextResults(nextResults + 8);
   };
 
+  const getScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ==
+      document.documentElement.offsetHeight
+    ) {
+      fetchNextResults();
+    } else {
+      return;
+    }
+  };
+
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    window.addEventListener("scroll", getScroll);
+    return () => window.removeEventListener("scroll", getScroll);
+  }, [getScroll]);
 
   useEffect(() => {
     if (info) {
@@ -72,7 +73,7 @@ function LaunchesData() {
       setHistory(info);
       setLoading(false);
     }
-  }, [info]);
+  }, [info, resetResultsOn]);
 
   //filtering
   const getSuccess = () => {
@@ -194,6 +195,8 @@ function LaunchesData() {
       }
     });
 
+    console.log("after2010", after2010);
+
     setHistory(after2010);
 
     const after2010Res = [];
@@ -257,11 +260,10 @@ function LaunchesData() {
       }
     }
 
+    setResetResultsOn(true);
     setHistory(info);
     setData(res);
-
     setReset(false);
-
     setFailuresSelected(false);
     setSuccessSelected(false);
     setFutureLaunchesSelected(false);
@@ -415,7 +417,7 @@ function LaunchesData() {
                 src={
                   launch.links && launch.links.patch.small
                     ? launch.links.patch.small
-                    : "default.jpg"
+                    : "image-default.jpg"
                 }
                 alt="ship-launch"
               />

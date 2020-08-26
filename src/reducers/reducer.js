@@ -13,7 +13,6 @@ const BEFORE_2010 = "BEFORE_2010";
 const AFTER_2010 = "AFTER_2010";
 
 const reducer = (state = initialState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case FETCH_USERS_REQUEST:
       return {

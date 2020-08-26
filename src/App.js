@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Switch, Route, Link, NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Route, NavLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -8,12 +8,9 @@ import LaunchesData from "./LaunchesData.js";
 import DataViz from "./DataViz.js";
 import Info from "./info.js";
 import "./App.scss";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 
 function App() {
   /* eslint-disable */
-  //eslint disabled to pass empty array to useEffect
   useEffect(() => {
     if (location.pathname === "/") {
       location.pathname = "/search";
@@ -67,7 +64,7 @@ function App() {
         </AppBar>
 
         <Route path="/search" component={LaunchesData}></Route>
-        <Route path="/visualize" render={props => <DataViz />}></Route>
+        <Route path="/visualize" component={DataViz}></Route>
         <Route path="/info" component={Info}></Route>
       </BrowserRouter>
     </div>

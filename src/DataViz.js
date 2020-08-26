@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Bar, Pie, Doughnut } from "react-chartjs-2";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function DataViz(props) {
   const info = useSelector(state => state.users);
@@ -13,7 +13,6 @@ function DataViz(props) {
   const [successFail, setSuccess] = useState();
   const [future, setFuture] = useState();
   const [date, setDate] = useState();
-  const [error, setError] = useState(false);
 
   /* eslint-disable */
   useEffect(() => {
@@ -55,14 +54,11 @@ function DataViz(props) {
           }
         ]
       });
-    } else {
-      setError(true);
     }
   }, [after2010]);
 
   return (
     <div className="data-viz-container">
-      {error && <span> Error in fetching the data; try again later </span>}
       <div className="single-chart padding-right">
         {success && (
           <Pie

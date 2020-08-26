@@ -5,19 +5,19 @@ import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import reducer from "./reducers/reducer.js";
-//import { fetchUsers } from "./action.js";
-
 const redux = require("redux");
 const thunkMiddleware = require("redux-thunk").default;
 const axios = require("axios");
 const createStore = redux.createStore;
 const applyMiddleware = redux.applyMiddleware;
 
+//store
 const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 store.subscribe(() => {
   console.log(store.getState());
 });
 
+//actions
 const FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST";
 const FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
 const FETCH_USERS_FAILURE = "FETCH_USERS_FAILURE";
@@ -89,7 +89,6 @@ const fetchUsers = () => {
     axios
       .get("https://api.spacexdata.com/v4/launches")
       .then(response => {
-        // response.data is the users
         const res = response.data;
         dispatch(fetchUsersRequest(res));
         const usersSuccess = response.data.filter(elem => elem.success);
@@ -127,12 +126,9 @@ const fetchUsers = () => {
           }
         });
 
-        console.log("after2010", af2010);
-
         dispatch(after2010(af2010));
       })
       .catch(error => {
-        // error.message is the error message
         dispatch(fetchUsersFailure(error.message));
       });
   };
