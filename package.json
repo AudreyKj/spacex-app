@@ -25,7 +25,8 @@
     "react-timestamp": "^5.1.0",
     "redux": "^4.0.5",
     "redux-mock-store": "^1.5.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "serve": "^11.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
