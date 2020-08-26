@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter,
   Route,
   NavLink,
   Switch,
-  Redirect
+  Redirect,
+  useHistory
 } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -16,6 +17,11 @@ import Info from "./info.js";
 import "./App.scss";
 
 function App() {
+  const history = useHistory();
+  /* eslint-disable */
+  useEffect(() => {
+    history.push("/search");
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
