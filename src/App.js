@@ -20,7 +20,7 @@ function App() {
   const history = useHistory();
   /* eslint-disable */
   useEffect(() => {
-    history.push("/search");
+    history.push("/");
   }, []);
   return (
     <div className="App">
