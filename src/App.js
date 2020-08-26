@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Route, NavLink } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, NavLink, useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -11,11 +11,15 @@ import "./App.scss";
 
 function App() {
   /* eslint-disable */
-  useEffect(() => {
-    if (location.pathname === "/") {
-      location.pathname = "/search";
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (location.pathname === "/") {
+  //     location.pathname = "/search";
+  //   }
+  // }, []);
+
+  const history = useHistory();
+
+  history.push("/search");
 
   return (
     <div className="App">
