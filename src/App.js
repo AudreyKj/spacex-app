@@ -20,7 +20,12 @@ function App() {
   const history = useHistory();
   /* eslint-disable */
   useEffect(() => {
-    history.push("/");
+    if (
+      window.location.pathname === "/search" ||
+      window.location.pathname === "/"
+    ) {
+      history.push("/");
+    }
   }, []);
   return (
     <div className="App">
