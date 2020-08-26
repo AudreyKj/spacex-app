@@ -23,4 +23,5 @@ The app is fully responsive. It features infinite scroll, search and filter feat
 
 ## Visual
 
-![screenshot](screenshot.png)
+![screenshot](screenshot-1.png)
+![screenshot](screenshot-2.png)
