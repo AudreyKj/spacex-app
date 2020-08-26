@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, NavLink, useHistory } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  NavLink,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -10,12 +16,6 @@ import Info from "./info.js";
 import "./App.scss";
 
 function App() {
-  const history = useHistory();
-  /* eslint-disable */
-  useEffect(() => {
-    history.push("/search");
-  }, []);
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -62,9 +62,14 @@ function App() {
           </Toolbar>
         </AppBar>
 
-        <Route path="/search" component={LaunchesData}></Route>
-        <Route path="/visualize" component={DataViz}></Route>
-        <Route path="/info" component={Info}></Route>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/search" />
+          </Route>
+          <Route path="/search" component={LaunchesData}></Route>
+          <Route path="/visualize" component={DataViz}></Route>
+          <Route path="/info" component={Info}></Route>
+        </Switch>
       </BrowserRouter>
     </div>
   );
