@@ -2,7 +2,7 @@
 
 React app that retrieves info about SpaceX's launches through the SpaceX-API.<br /><br />
 The app is fully responsive. It features search and filter features about SpaceX's launches as well as data visualization. <br /><br />
-I’ve used Create React App to kickstart the project, as it comes with babel and webpack configured and is supported by a broad range of browsers for production builds. <br/>
+I’ve used Create React App to kickstart the project, as it comes with babel and webpack configured and is supported by a broad range of browsers for production builds <br/>
 
 ## Implementation
 
@@ -28,4 +28,3 @@ The app's components and main features have been all tested with Jest. <br/>
 ## Tech
 
 **Stack**: SASS/SCSS, JavaScript, React, React Hooks, chart.js, Jest
-
