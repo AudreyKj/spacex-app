@@ -111,6 +111,8 @@ const fetchUsers = () => {
           if (year.includes("200")) {
             bef2010.push(elem);
           }
+
+          return bef2010;
         });
         dispatch(before2010(bef2010));
         const af2010 = [];
@@ -124,6 +126,8 @@ const fetchUsers = () => {
           if (year.includes("201") || year.includes("202")) {
             af2010.push(elem);
           }
+
+          return af2010;
         });
 
         dispatch(after2010(af2010));

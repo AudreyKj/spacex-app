@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Timestamp from "react-timestamp";
-import { useSelector, useDispatch } from "react-redux";
-import DataViz from "./DataViz.js";
+import { useSelector } from "react-redux";
 
 function LaunchesData() {
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [history, setHistory] = useState(false);
   const [reset, setReset] = useState(false);
   const [resetResultsOn, setResetResultsOn] = useState(false);
@@ -22,41 +20,40 @@ function LaunchesData() {
 
   //infinite scroll
   const [nextResults, setNextResults] = useState(8);
-  const [loadingResults, setLoadingResults] = useState(false);
 
   const info = useSelector(state => state.users);
 
   console.log("history", history);
 
-  const fetchNextResults = () => {
-    const results = [];
-
-    for (let i = nextResults; i < nextResults + 8; i++) {
-      if (history[i]) {
-        results.push(history[i]);
-      }
-    }
-
-    setData(prevState => [...prevState.concat(results)]);
-
-    setNextResults(nextResults + 8);
-  };
-
-  const getScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ==
-      document.documentElement.offsetHeight
-    ) {
-      fetchNextResults();
-    } else {
-      return;
-    }
-  };
-
   useEffect(() => {
+    const getScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight
+      ) {
+        fetchNextResults();
+      } else {
+        return;
+      }
+    };
+
+    const fetchNextResults = () => {
+      const results = [];
+
+      for (let i = nextResults; i < nextResults + 8; i++) {
+        if (history[i]) {
+          results.push(history[i]);
+        }
+      }
+
+      setData(prevState => [...prevState.concat(results)]);
+
+      setNextResults(nextResults + 8);
+    };
+
     window.addEventListener("scroll", getScroll);
     return () => window.removeEventListener("scroll", getScroll);
-  }, [getScroll]);
+  }, [history, nextResults]);
 
   useEffect(() => {
     if (info) {
@@ -163,6 +160,8 @@ function LaunchesData() {
       if (year.includes("200")) {
         before2010.push(elem);
       }
+
+      return before2010;
     });
 
     setHistory(before2010);
@@ -193,6 +192,8 @@ function LaunchesData() {
       if (year.includes("201") || year.includes("202")) {
         after2010.push(elem);
       }
+
+      return after2010;
     });
 
     console.log("after2010", after2010);
@@ -222,7 +223,7 @@ function LaunchesData() {
 
     let res = [];
 
-    const results = history.filter(elem => {
+    history.filter(elem => {
       if (elem.name) {
         let name = elem.name;
         if (name.split(" ").includes(searchValue)) {
@@ -245,6 +246,8 @@ function LaunchesData() {
           res.push(elem);
         }
       }
+
+      return res;
     });
 
     setData(res);
@@ -281,11 +284,6 @@ function LaunchesData() {
         </span>
       )}
 
-      {error && (
-        <span className="error">
-          Error in retrieving the data: please try again later!
-        </span>
-      )}
       {data && (
         <div className="search-filter">
           <div className="search">
