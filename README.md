@@ -3,6 +3,8 @@
 React app that retrieves info about SpaceX's launches through the Open Source REST API [spaceX](https://github.com/r-spacex/SpaceX-API).<br /><br />
 The app is fully responsive. It features infinite scroll, search and filter features as well as data visualization.
 
+[**visit live app**](https://spacex-spacex.netlify.app/search)
+
 ## Features
 
 - get data about SpaceX through API call (performed in Redux store)
@@ -13,7 +15,7 @@ The app is fully responsive. It features infinite scroll, search and filter feat
 
 ## Future improvements
 
-- add a text highlight feature for search
+- add a text highlight feature for search (currently working on this!)
 - add more tests
 
 ## Tech
@@ -21,7 +23,7 @@ The app is fully responsive. It features infinite scroll, search and filter feat
 **Stack**: SASS/SCSS, JavaScript, React, Redux, Redux Thunk, chart.js, Jest <br/>
 **Deployment**: Netlify
 
-## Visual
+## Visuals
 
 ![screenshot](screenshot-1.png)
 ![screenshot](screenshot-2.png)
