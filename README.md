@@ -3,8 +3,6 @@
 React app that retrieves info about SpaceX's launches through the Open Source REST API [spaceX](https://github.com/r-spacex/SpaceX-API).<br /><br />
 The app is fully responsive. It features search and filter features as well as data visualization. <br /><br />
 
-[**visit live app**](https://digital-bakery.herokuapp.com/)
-
 ## Features
 
 - get data about SpaceX through API call (performed in Redux store)
