@@ -19,7 +19,7 @@ The app is fully responsive. It features infinite scroll, search and filter feat
 ## Tech
 
 **Stack**: SASS/SCSS, JavaScript, React, Redux, Redux Thunk, chart.js, Jest <br/>
-**Deployment**: Heroku
+**Deployment**: Netlify
 
 ## Visual
 

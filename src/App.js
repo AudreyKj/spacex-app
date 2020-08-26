@@ -63,9 +63,7 @@ function App() {
         </AppBar>
 
         <Switch>
-          <Route exact path="/">
-            <Redirect to="/search" />
-          </Route>
+          <Route exact path="/" component={App}></Route>
           <Route path="/search" component={LaunchesData}></Route>
           <Route path="/visualize" component={DataViz}></Route>
           <Route path="/info" component={Info}></Route>
