@@ -10,16 +10,11 @@ import Info from "./info.js";
 import "./App.scss";
 
 function App() {
-  /* eslint-disable */
-  // useEffect(() => {
-  //   if (location.pathname === "/") {
-  //     location.pathname = "/search";
-  //   }
-  // }, []);
-
   const history = useHistory();
-
-  history.push("/search");
+  /* eslint-disable */
+  useEffect(() => {
+    history.push("/search");
+  }, []);
 
   return (
     <div className="App">
