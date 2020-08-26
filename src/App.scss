@@ -15,13 +15,13 @@ $lightgrey: #d3d3d3;
   justify-content: center;
 }
 
-@mixin button($backgroundColor, $color) {
+@mixin button($backgroundColor, $color, $borderColor) {
   letter-spacing: 0.04em;
   min-width: 1.5em;
   border-radius: 10em;
   background-color: $backgroundColor;
   color: $color;
-  border: 1px solid #333;
+  border: 1px solid $borderColor;
   text-transform: uppercase;
   margin: 0.5em 0.5em;
   padding: 5px 10px;
@@ -33,6 +33,7 @@ body {
   font-family: "Questrial", "Roboto", sans-serif;
   font-size: 1.2rem;
   color: $black;
+  background-color: whitesmoke;
 }
 
 @media (min-width: 1900px) {
@@ -70,9 +71,23 @@ div.App {
   }
 }
 
-span.nav-about {
-  position: absolute;
-  right: 20px;
+div.MuiToolbar-root {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  font-weight: bold;
+  font-size: 1.3rem;
+  background-color: #c1c1c1;
+  box-shadow: 0;
+  color: black;
+}
+
+.MuiPaper-elevation4 {
+  box-shadow: none;
+}
+
+.MuiButton-label {
+  font-size: 1rem;
 }
 
 /* SEARCH & FILTERING */
@@ -103,6 +118,7 @@ input[type="text"].search-feature {
   margin-left: 5px;
   padding: 5px;
   border: 1px solid $grey;
+  background-color: whitesmoke;
 }
 
 button.searchValue {
@@ -121,6 +137,10 @@ button.searchValue {
   }
 }
 
+.yellow {
+  background-color: yellow;
+}
+
 div.filtering {
   width: 100%;
   margin-top: 20px;
@@ -129,16 +149,19 @@ div.filtering {
 }
 
 .filter {
-  @include button($lightgrey, $black);
+  @include button(black, $white, transparent);
 }
 
 .selected {
-  background: $blue;
-  color: $white;
+  background: whitesmoke;
+  border: 1px solid black;
+  color: black;
+  outline: none;
 }
 
 button.reset {
-  @include button($black, $white);
+  @include button(#c1c1c1, black, transparent);
+  outline: none;
 }
 
 div.filtering {
@@ -166,6 +189,27 @@ span.details {
 
 .name {
   font-weight: bold;
+}
+
+.purple {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: purple;
+}
+
+.red {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.green {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: green;
 }
 
 a.details,
@@ -225,24 +269,24 @@ div.intro {
   }
 }
 
-p {
-  width: 50%;
-}
-
-@media (max-width: 600px) {
-  p {
-    width: 70%;
-    text-align: center;
-  }
-}
-
-div.data-viz {
+div.data-viz-container {
   display: flex;
   justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 100px;
 }
 
-div.chart {
-  height: 20%;
+div.single-chart {
+  height: 50%;
+}
+
+.padding-right {
+  padding-right: 30px;
+}
+
+.padding-left {
+  padding-left: 30px;
 }
 
 /* LOADING & ERROR  */
@@ -256,4 +300,33 @@ span.error {
 
 span.error {
   color: $red;
+}
+
+/* INFO COMPONENT  */
+div.info-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 50px;
+}
+
+p.info-component {
+  width: 40%;
+}
+
+@media (max-width: 700px) {
+  p.info-component {
+    width: 60%;
+  }
+}
+
+a.underline,
+a.underline:active,
+a.underline:visited {
+  color: black;
+}
+
+a.underline:hover {
+  color: #c1c1c1;
 }

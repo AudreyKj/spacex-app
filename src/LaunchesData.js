@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Timestamp from "react-timestamp";
-import DataViz from "./DataViz";
+import { useSelector, useDispatch } from "react-redux";
+import { getData, getSuccess } from "./action.js";
+import DataViz from "./DataViz.js";
 
 function LaunchesData() {
   const [data, setData] = useState(false);
@@ -19,105 +21,190 @@ function LaunchesData() {
   const [before2010Selected, setBefore2010Selected] = useState(false);
   const [after2010Selected, setAfter2010Selected] = useState(false);
 
-  /* eslint-disable */
-  //eslint disabled to pass empty array to useEffect
+  //infinite scroll
+  const [nextResults, setNextResults] = useState(8);
+  const [loadingResults, setLoadingResults] = useState(false);
+
+  const info = useSelector(state => state.users);
+
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ==
+      document.documentElement.offsetHeight
+    ) {
+      fetchNextResults();
+    } else {
+      return;
+    }
+  };
+
+  const fetchNextResults = () => {
+    const results = [];
+
+    for (let i = nextResults; i < nextResults + 8; i++) {
+      if (history[i]) {
+        results.push(history[i]);
+      }
+    }
+
+    setData(prevState => [...prevState.concat(results)]);
+
+    setNextResults(nextResults + 8);
+  };
+
   useEffect(() => {
-    axios
-      .get("https://api.spacexdata.com/v4/launches")
-      .then(res => {
-        setLoading(false);
-        setHistory(res.data);
-        setData(res.data);
-      })
-      .catch(error => {
-        setLoading(false);
-        setError(true);
-      });
-  }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  useEffect(() => {
+    if (info) {
+      const res = [];
+
+      for (let i = 0; i < 8; i++) {
+        if (info[i]) {
+          res.push(info[i]);
+        }
+      }
+
+      setData(res);
+
+      setHistory(info);
+      setLoading(false);
+    }
+  }, [info]);
 
   //filtering
   const getSuccess = () => {
     setReset(true);
-    const successes = data.filter(elem => elem.success);
-
-    setData(successes);
     setSuccessSelected(true);
+
+    const successes = history.filter(elem => elem.success);
+    setHistory(successes);
+
+    const successRes = [];
+
+    for (let i = 0; i < 8; i++) {
+      if (successes[i]) {
+        successRes.push(successes[i]);
+      }
+    }
+
+    setData(successRes);
   };
 
   const getFailures = () => {
     setReset(true);
-
-    const failures = data.filter(elem => elem.success === false);
-
-    setData(failures);
     setFailuresSelected(true);
-  };
 
-  const getNoFutureLaunches = () => {
-    setReset(true);
+    const failures = history.filter(elem => elem.success === false);
+    setHistory(failures);
 
-    const noFutureLaunches = data.filter(elem => elem.upcoming === false);
+    const failuresRes = [];
 
-    setData(noFutureLaunches);
-    setFutureNoLaunchesSelected(true);
+    for (let i = 0; i < 8; i++) {
+      if (failures[i]) {
+        failuresRes.push(failures[i]);
+      }
+    }
+
+    setData(failuresRes);
   };
 
   const getFutureLaunches = () => {
     setReset(true);
-
-    const futureLaunches = data.filter(elem => elem.upcoming);
-
-    setData(futureLaunches);
     setFutureLaunchesSelected(true);
+
+    const futureLaunches = history.filter(elem => elem.upcoming);
+    setHistory(futureLaunches);
+
+    const futureRes = [];
+
+    for (let i = 0; i < 8; i++) {
+      if (futureLaunches[i]) {
+        futureRes.push(futureLaunches[i]);
+      }
+    }
+
+    setData(futureRes);
+  };
+
+  const getNoFutureLaunches = () => {
+    setReset(true);
+    setFutureNoLaunchesSelected(true);
+
+    const noFutureLaunches = history.filter(elem => elem.upcoming === false);
+    setHistory(noFutureLaunches);
+
+    const noFutureLaunchesRes = [];
+
+    for (let i = 0; i < 8; i++) {
+      if (noFutureLaunches[i]) {
+        noFutureLaunchesRes.push(noFutureLaunches[i]);
+      }
+    }
+
+    setData(noFutureLaunchesRes);
   };
 
   const getBefore2010 = () => {
     setReset(true);
-    const res = [];
-    data.filter(elem => {
+    setBefore2010Selected(true);
+
+    const before2010 = [];
+
+    history.filter(elem => {
       const date = elem.date_local;
 
       let year = date.split("-")[0];
       year = year.slice(0, -1);
 
       if (year.includes("200")) {
-        res.push(elem);
+        before2010.push(elem);
       }
     });
 
-    setData(res);
-    setBefore2010Selected(true);
+    setHistory(before2010);
+
+    const before2010Res = [];
+
+    for (let i = 0; i < 8; i++) {
+      if (before2010[i]) {
+        before2010Res.push(before2010[i]);
+      }
+    }
+
+    setData(before2010Res);
   };
 
   const getAfter2010 = () => {
-    const res = [];
     setReset(true);
-    data.filter(elem => {
+    setAfter2010Selected(true);
+
+    const after2010 = [];
+
+    history.filter(elem => {
       const date = elem.date_local;
 
       let year = date.split("-")[0];
       year = year.slice(0, -1);
 
       if (year.includes("201") || year.includes("202")) {
-        res.push(elem);
+        after2010.push(elem);
       }
     });
 
-    setData(res);
-    setAfter2010Selected(true);
-  };
+    setHistory(after2010);
 
-  //reset results
-  const resetResults = () => {
-    setData(history);
-    setReset(false);
-    setFailuresSelected(false);
-    setSuccessSelected(false);
-    setFutureLaunchesSelected(false);
-    setFutureNoLaunchesSelected(false);
-    setBefore2010Selected(false);
-    setAfter2010Selected(false);
-    setSearchValue("");
+    const after2010Res = [];
+
+    for (let i = 0; i < 8; i++) {
+      if (after2010[i]) {
+        after2010Res.push(after2010[i]);
+      }
+    }
+
+    setData(after2010Res);
   };
 
   //search
@@ -129,22 +216,28 @@ function LaunchesData() {
     }
 
     setReset(true);
-    const res = [];
+
+    let res = [];
 
     const results = history.filter(elem => {
-      const name = elem.name;
-      if (name.split(" ").includes(searchValue)) {
-        res.push(elem);
+      if (elem.name) {
+        let name = elem.name;
+        if (name.split(" ").includes(searchValue)) {
+          res.push(elem);
+        }
       }
 
-      const date = elem.date_local;
+      if (elem.date_local) {
+        const date = elem.date_local;
 
-      if (date.split("-").includes(searchValue)) {
-        res.push(elem);
+        if (date.split("-").includes(searchValue)) {
+          res.push(elem);
+        }
       }
 
       if (elem.details) {
         const details = elem.details;
+
         if (details.split(" ").includes(searchValue)) {
           res.push(elem);
         }
@@ -154,18 +247,32 @@ function LaunchesData() {
     setData(res);
   };
 
+  //reset results
+  const resetResults = () => {
+    const res = [];
+
+    for (let i = 0; i < 8; i++) {
+      if (info[i]) {
+        res.push(info[i]);
+      }
+    }
+
+    setHistory(info);
+    setData(res);
+
+    setReset(false);
+
+    setFailuresSelected(false);
+    setSuccessSelected(false);
+    setFutureLaunchesSelected(false);
+    setFutureNoLaunchesSelected(false);
+    setBefore2010Selected(false);
+    setAfter2010Selected(false);
+    setSearchValue("");
+  };
+
   return (
     <section className="launchesData">
-      <div className="intro">
-        <p>
-          SpaceX designs, manufactures and launches advanced rockets and
-          spacecraft. <br /> <br /> See on the right a data visualization of the
-          company's successful and failed launches. Search for information about
-          SpaceX's launches below.
-        </p>
-        {data && <DataViz props={data} />}
-      </div>
-
       {loading && (
         <span className="loading" data-testid="loading">
           Loading...
@@ -240,6 +347,7 @@ function LaunchesData() {
                   : "before2010 filter"
               }
               onClick={getBefore2010}
+              data-testid="before2010"
             >
               before 2010
             </button>
@@ -275,7 +383,6 @@ function LaunchesData() {
                     options={{ includeDay: false, twentyFourHour: false }}
                   />
                 </span>
-
                 <span className="details">
                   {launch.success === null
                     ? "launch did not happen yet"
@@ -283,14 +390,12 @@ function LaunchesData() {
                     ? "launch failed"
                     : "launch was successful"}
                 </span>
-
                 <span className="details">
                   {launch.upcoming
                     ? "Upcoming launches planned"
                     : "No upcoming launches planned"}
                 </span>
                 <span className="details info"> {launch.details} </span>
-
                 {launch.links && launch.links.article ? (
                   <a
                     target="_blank"
@@ -304,14 +409,15 @@ function LaunchesData() {
                   "No article available"
                 )}
               </div>
+
               <img
                 className="ship-image"
                 src={
                   launch.links && launch.links.patch.small
                     ? launch.links.patch.small
-                    : "image-default.jpg"
+                    : "default.jpg"
                 }
-                alt="ship-image"
+                alt="ship-launch"
               />
             </div>
           ))}
