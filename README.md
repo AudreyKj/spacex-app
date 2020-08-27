@@ -6,11 +6,11 @@ This web app displays data about spaceX using the Open Source REST API [spaceX](
 
 ## Features
 
-- get data about SpaceX through API call (performed via Redux thunk)
+- get data about SpaceX through API call (via Redux thunk)
 - infinite scroll when retrieving data
 - search information about the launches
-- filter out information (success/failure, year date, future launches)
-- data visualization (success/failure, year date, future launches)
+- filter out information (success/failure, year date, future/no future launches)
+- data visualization (success/failure, year date, future/no future launches)
 
 ## Future improvements
 
@@ -19,7 +19,8 @@ This web app displays data about spaceX using the Open Source REST API [spaceX](
 
 ## Tech
 
-**Stack**: JavaScript, React, SASS/SCSS, styled-components, Redux, Redux Thunk, chart.js, Jest <br/>
+**Stack**: JavaScript, React, Redux, Redux Thunk, chart.js, Jest <br/>
+**Styling**: SASS/SCSS, styled-components, postCss Normalize <br/>
 **Deployment**: Netlify
 
 ## Visuals

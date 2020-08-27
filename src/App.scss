@@ -29,6 +29,12 @@ $greyHeader: #dcdcdc;
   cursor: pointer;
 }
 
+*,
+html {
+  padding: 0;
+  margin: 0;
+}
+
 body {
   font-family: "Questrial", "Roboto", sans-serif;
   font-size: 1.2rem;
