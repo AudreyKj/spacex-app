@@ -1,12 +1,39 @@
 import React, { useEffect, useState } from "react";
 import Timestamp from "react-timestamp";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
+
+//styled components for search
+const SearchButton = styled.button`
+  margin-left: ${props => (props.resetSearch ? "15px" : "15px")};
+  margin-right: ${props => (props.resetSearch ? "15px" : "0")};
+
+  cursor: pointer;
+  font-size: 0.9rem;
+  background: transparent;
+  border: 1px solid black;
+  padding: 5px;
+
+  @media (max-width: 400px) {
+    button.searchValue {
+      margin-top: 15px;
+    }
+  }
+`;
+
+const SearchInput = styled.input`
+  margin-left: 5px;
+  padding: 5px;
+  border: 1px solid black;
+  background-color: transparent;
+`;
 
 function LaunchesData() {
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState(false);
   const [reset, setReset] = useState(false);
+  const [resetSearch, setResetSearch] = useState(false);
   const [resetResultsOn, setResetResultsOn] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [successSelected, setSuccessSelected] = useState(false);
@@ -219,7 +246,7 @@ function LaunchesData() {
       return;
     }
 
-    setReset(true);
+    setResetSearch(true);
 
     let res = [];
 
@@ -267,6 +294,7 @@ function LaunchesData() {
     setHistory(info);
     setData(res);
     setReset(false);
+    setResetSearch(false);
     setFailuresSelected(false);
     setSuccessSelected(false);
     setFutureLaunchesSelected(false);
@@ -290,20 +318,22 @@ function LaunchesData() {
             <form className="search">
               <label>
                 search:
-                <input
+                <SearchInput
                   type="text"
                   name="launches"
-                  className="search-feature"
                   data-testid="search"
                   value={searchValue}
                   onChange={({ target }) => {
                     setSearchValue(target.value);
                   }}
-                />
+                ></SearchInput>
               </label>
-              <button className="searchValue" onClick={getSearchedResults}>
-                SEARCH
-              </button>
+              <SearchButton onClick={getSearchedResults}>SEARCH</SearchButton>
+              {resetSearch && (
+                <SearchButton resetSearch onClick={resetResults}>
+                  RESET SEARCH
+                </SearchButton>
+              )}
             </form>
           </div>
           <div className="filtering">
@@ -395,7 +425,13 @@ function LaunchesData() {
                     ? "Upcoming launches planned"
                     : "No upcoming launches planned"}
                 </span>
-                <span className="details info"> {launch.details} </span>
+
+                {launch.details ? (
+                  <span className="details info"> {launch.details} </span>
+                ) : (
+                  ""
+                )}
+
                 {launch.links && launch.links.article ? (
                   <a
                     target="_blank"

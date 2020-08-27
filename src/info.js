@@ -16,8 +16,7 @@ function Info() {
         >
           Open Source REST API spaceX
         </a>
-        : it allow users to search and filter information as well as seeing data
-        visualizations. <br />
+        : it allow users to search, filter, and visualize information. <br />
         <br />
         This web app was just made for fun and informative purposes and is not
         affiliated to spaceX in any way. <br />

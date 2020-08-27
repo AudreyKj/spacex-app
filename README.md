@@ -1,13 +1,13 @@
 ## SpaceX app with React
 
-React app that retrieves info about SpaceX's launches through the Open Source REST API [spaceX](https://github.com/r-spacex/SpaceX-API).<br /><br />
-The app is fully responsive. It features infinite scroll, search and filter features as well as data visualization.
+This web app displays data about spaceX using the Open Source REST API [spaceX](https://github.com/r-spacex/SpaceX-API): it allow users to search, filter, and visualize information. <br />
+The app is fully responsive and features infinite scroll.
 
 [**visit live app**](https://spacex-spacex.netlify.app/search)
 
 ## Features
 
-- get data about SpaceX through API call (performed in Redux store)
+- get data about SpaceX through API call (performed via Redux thunk)
 - infinite scroll when retrieving data
 - search information about the launches
 - filter out information (success/failure, year date, future launches)
