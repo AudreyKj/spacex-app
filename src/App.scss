@@ -140,13 +140,17 @@ div.filtering {
 }
 
 button.reset {
-  @include button($grey, black, transparent);
+  @include button($greyHeader, black, transparent);
   outline: none;
 }
 
 div.filtering {
   display: flex;
   align-items: center;
+}
+
+.yellow {
+  background-color: yellow;
 }
 
 /* SPACEX DATA */
@@ -211,8 +215,8 @@ img.ship-image {
   font-style: italic;
   width: 65%;
   border: 1px dashed $grey;
-  padding: 15px;
-  margin-left: -15px;
+  padding: 5px;
+  margin-left: -5px;
 }
 
 /* DATA VIZ */
@@ -221,7 +225,7 @@ div.data-viz-container {
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 @media (max-width: 1000px) {

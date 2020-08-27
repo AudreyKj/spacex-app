@@ -28,6 +28,7 @@ const SearchInput = styled.input`
   background-color: transparent;
 `;
 
+//LaunchesData component
 function LaunchesData() {
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -48,10 +49,10 @@ function LaunchesData() {
   //infinite scroll
   const [nextResults, setNextResults] = useState(8);
 
+  //fetching data in redux store
   const info = useSelector(state => state.users);
 
-  console.log("history", history);
-
+  //infinite scroll
   useEffect(() => {
     const getScroll = () => {
       if (
@@ -82,6 +83,7 @@ function LaunchesData() {
     return () => window.removeEventListener("scroll", getScroll);
   }, [history, nextResults]);
 
+  //display fetched data
   useEffect(() => {
     if (info) {
       const res = [];
@@ -223,8 +225,6 @@ function LaunchesData() {
       return after2010;
     });
 
-    console.log("after2010", after2010);
-
     setHistory(after2010);
 
     const after2010Res = [];
@@ -250,10 +250,13 @@ function LaunchesData() {
 
     let res = [];
 
-    history.filter(elem => {
+    const regex = RegExp(searchValue, "gi");
+
+    history.map(elem => {
       if (elem.name) {
         let name = elem.name;
-        if (name.split(" ").includes(searchValue)) {
+
+        if (regex.test(name)) {
           res.push(elem);
         }
       }
@@ -261,7 +264,7 @@ function LaunchesData() {
       if (elem.date_local) {
         const date = elem.date_local;
 
-        if (date.split("-").includes(searchValue)) {
+        if (regex.test(date)) {
           res.push(elem);
         }
       }
@@ -269,7 +272,7 @@ function LaunchesData() {
       if (elem.details) {
         const details = elem.details;
 
-        if (details.split(" ").includes(searchValue)) {
+        if (regex.test(details)) {
           res.push(elem);
         }
       }
@@ -291,10 +294,12 @@ function LaunchesData() {
     }
 
     setResetResultsOn(true);
-    setHistory(info);
-    setData(res);
     setReset(false);
     setResetSearch(false);
+
+    setHistory(info);
+    setData(res);
+
     setFailuresSelected(false);
     setSuccessSelected(false);
     setFutureLaunchesSelected(false);
@@ -405,13 +410,19 @@ function LaunchesData() {
               data-testid="launch"
             >
               <div className="details">
-                <span className="details name"> {launch.name} </span>
+                <span className="details name">{launch.name}</span>
                 <span className="details">
                   Launch on&nbsp;
                   <Timestamp
                     date={launch.date_unix}
                     options={{ includeDay: false, twentyFourHour: false }}
                   />
+                  {console.log(
+                    <Timestamp
+                      date={launch.date_unix}
+                      options={{ includeDay: false, twentyFourHour: false }}
+                    />
+                  )}
                 </span>
                 <span className="details">
                   {launch.success === null

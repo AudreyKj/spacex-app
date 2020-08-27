@@ -15,12 +15,12 @@ The app is fully responsive and features infinite scroll.
 
 ## Future improvements
 
-- add a text highlight feature for search (currently working on this!)
+- add a text highlight feature for search
 - add more tests
 
 ## Tech
 
-**Stack**: SASS/SCSS, JavaScript, React, Redux, Redux Thunk, chart.js, Jest <br/>
+**Stack**: JavaScript, React, SASS/SCSS, styled-components, Redux, Redux Thunk, chart.js, Jest <br/>
 **Deployment**: Netlify
 
 ## Visuals
