@@ -1,7 +1,6 @@
 ## SpaceX app with React
 
-This web app displays data about spaceX using the Open Source REST API [spaceX](https://github.com/r-spacex/SpaceX-API): it allow users to search, filter, and visualize information. <br />
-The app is fully responsive and features infinite scroll.
+This web app displays data about spaceX using the Open Source REST API [spaceX](https://github.com/r-spacex/SpaceX-API): it allow users to search, filter, and visualize information. The app is fully responsive and features infinite scroll.
 
 [**visit live app**](https://spacex-spacex.netlify.app/search)
 
