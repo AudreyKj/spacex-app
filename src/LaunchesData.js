@@ -30,6 +30,7 @@ const SearchInput = styled.input`
 
 //LaunchesData component
 function LaunchesData() {
+  const maxResultsNumPage = 8;
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState(false);
@@ -45,50 +46,16 @@ function LaunchesData() {
   );
   const [before2010Selected, setBefore2010Selected] = useState(false);
   const [after2010Selected, setAfter2010Selected] = useState(false);
-
-  //infinite scroll
-  const [nextResults, setNextResults] = useState(8);
+  const [nextResults, setNextResults] = useState(maxResultsNumPage);
 
   //fetching data in redux store
-  const info = useSelector(state => state.users);
+  const info = useSelector(state => state.data);
 
-  //infinite scroll
-  useEffect(() => {
-    const getScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        fetchNextResults();
-      } else {
-        return;
-      }
-    };
-
-    const fetchNextResults = () => {
-      const results = [];
-
-      for (let i = nextResults; i < nextResults + 8; i++) {
-        if (history[i]) {
-          results.push(history[i]);
-        }
-      }
-
-      setData(prevState => [...prevState.concat(results)]);
-
-      setNextResults(nextResults + 8);
-    };
-
-    window.addEventListener("scroll", getScroll);
-    return () => window.removeEventListener("scroll", getScroll);
-  }, [history, nextResults]);
-
-  //display fetched data
   useEffect(() => {
     if (info) {
       const res = [];
 
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < maxResultsNumPage; i++) {
         if (info[i]) {
           res.push(info[i]);
         }
@@ -101,6 +68,43 @@ function LaunchesData() {
     }
   }, [info, resetResultsOn]);
 
+
+  //infinite scroll
+  useEffect(() => {
+
+    const getScroll = () => {
+      const offset = 0.5;
+      if (
+        window.innerHeight + (document.documentElement.scrollTop + offset) >=
+        document.documentElement.offsetHeight
+      ) {
+        fetchNextResults();
+      } else {
+        return;
+      }
+    };
+
+    const fetchNextResults = () => {
+      const results = [];
+
+      for (let i = nextResults; i < nextResults + maxResultsNumPage; i++) {
+        if (history[i]) {
+          results.push(history[i]);
+        }
+      }
+
+      setData(prevState => [...prevState.concat(results)]);
+
+      setNextResults(nextResults + maxResultsNumPage);
+    };
+
+
+    window.addEventListener("scroll", getScroll);
+    return () => window.removeEventListener("scroll", getScroll);
+  }, [history, nextResults]);
+
+
+
   //filtering
   const getSuccess = () => {
     setReset(true);
@@ -111,7 +115,7 @@ function LaunchesData() {
 
     const successRes = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < maxResultsNumPage; i++) {
       if (successes[i]) {
         successRes.push(successes[i]);
       }
@@ -129,7 +133,7 @@ function LaunchesData() {
 
     const failuresRes = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < maxResultsNumPage; i++) {
       if (failures[i]) {
         failuresRes.push(failures[i]);
       }
@@ -147,7 +151,7 @@ function LaunchesData() {
 
     const futureRes = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < maxResultsNumPage; i++) {
       if (futureLaunches[i]) {
         futureRes.push(futureLaunches[i]);
       }
@@ -165,7 +169,7 @@ function LaunchesData() {
 
     const noFutureLaunchesRes = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < maxResultsNumPage; i++) {
       if (noFutureLaunches[i]) {
         noFutureLaunchesRes.push(noFutureLaunches[i]);
       }
@@ -197,7 +201,7 @@ function LaunchesData() {
 
     const before2010Res = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < maxResultsNumPage; i++) {
       if (before2010[i]) {
         before2010Res.push(before2010[i]);
       }
@@ -229,7 +233,7 @@ function LaunchesData() {
 
     const after2010Res = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < maxResultsNumPage; i++) {
       if (after2010[i]) {
         after2010Res.push(after2010[i]);
       }
@@ -287,7 +291,7 @@ function LaunchesData() {
   const resetResults = () => {
     const res = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < maxResultsNumPage; i++) {
       if (info[i]) {
         res.push(info[i]);
       }
@@ -417,19 +421,13 @@ function LaunchesData() {
                     date={launch.date_unix}
                     options={{ includeDay: false, twentyFourHour: false }}
                   />
-                  {console.log(
-                    <Timestamp
-                      date={launch.date_unix}
-                      options={{ includeDay: false, twentyFourHour: false }}
-                    />
-                  )}
                 </span>
                 <span className="details">
                   {launch.success === null
                     ? "launch did not happen yet"
                     : launch.succcess === false || !launch.success
-                    ? "launch failed"
-                    : "launch was successful"}
+                      ? "launch failed"
+                      : "launch was successful"}
                 </span>
                 <span className="details">
                   {launch.upcoming

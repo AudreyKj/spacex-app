@@ -6,7 +6,7 @@ const mockStore = configureStore(middlewares);
 
 function fetchUsersRequest() {
   return {
-    type: "FETCH_USERS_REQUEST"
+    type: "FETCH_DATA_REQUEST"
   };
 }
 

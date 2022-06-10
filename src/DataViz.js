@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Bar, Pie, Doughnut } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 
-function DataViz(props) {
-  const info = useSelector(state => state.users);
+function DataViz() {
+  const info = useSelector(state => state.data);
   const success = useSelector(state => state.success);
   const failures = useSelector(state => state.fail);
   const futureLaunches = useSelector(state => state.future);

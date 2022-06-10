@@ -1,12 +1,12 @@
 const initialState = {
   loading: false,
-  users: [],
+  data: [],
   error: ""
 };
-const FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST";
-const FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
-const FETCH_USERS_FAILURE = "FETCH_USERS_FAILURE";
-const FETCH_USERS_FAIL = "FETCH_USERS_FAIL";
+const FETCH_DATA_REQUEST = "FETCH_DATA_REQUEST";
+const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
+const FETCH_DATA_FAILURE = "FETCH_DATA_FAILURE";
+const FETCH_DATA_FAIL = "FETCH_DATA_FAIL";
 const FETCH_FUTURE = "FETCH_FUTURE";
 const FETCH_NO_FUTURE = "FETCH_NO_FUTURE";
 const BEFORE_2010 = "BEFORE_2010";
@@ -14,17 +14,17 @@ const AFTER_2010 = "AFTER_2010";
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_USERS_REQUEST:
+    case FETCH_DATA_REQUEST:
       return {
         ...state,
-        users: action.payload
+        data: action.payload
       };
-    case FETCH_USERS_SUCCESS:
+    case FETCH_DATA_SUCCESS:
       return {
         ...state,
         success: action.payload
       };
-    case FETCH_USERS_FAIL:
+    case FETCH_DATA_FAIL:
       return {
         ...state,
         fail: action.payload
@@ -49,7 +49,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         after2010: action.payload
       };
-    case FETCH_USERS_FAILURE:
+    case FETCH_DATA_FAILURE:
       return {
         ...state,
         error: action.payload
