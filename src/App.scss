@@ -145,9 +145,17 @@ div.filtering {
   outline: none;
 }
 
-button.reset {
+.reset-button-default  {
   @include button($greyHeader, black, transparent);
   outline: none;
+}
+
+.reset-button-visible {
+  visibility: visible;
+} 
+
+.reset-button-invisible {
+  visibility: hidden;
 }
 
 div.filtering {

@@ -30,9 +30,7 @@ function LaunchesData() {
       const res = [];
 
       for (let i = 0; i < maxResultsNumPage; i++) {
-        if (info[i]) {
-          res.push(info[i]);
-        }
+        if (info[i]) res.push(info[i]);
       }
 
       setData(res);
@@ -90,9 +88,7 @@ function LaunchesData() {
     const successRes = [];
 
     for (let i = 0; i < maxResultsNumPage; i++) {
-      if (successes[i]) {
-        successRes.push(successes[i]);
-      }
+      if (successes[i]) successRes.push(successes[i]);
     }
 
     setData(successRes);
@@ -108,9 +104,7 @@ function LaunchesData() {
     const failuresRes = [];
 
     for (let i = 0; i < maxResultsNumPage; i++) {
-      if (failures[i]) {
-        failuresRes.push(failures[i]);
-      }
+      if (failures[i]) failuresRes.push(failures[i]);
     }
 
     setData(failuresRes);
@@ -126,9 +120,7 @@ function LaunchesData() {
     const futureRes = [];
 
     for (let i = 0; i < maxResultsNumPage; i++) {
-      if (futureLaunches[i]) {
-        futureRes.push(futureLaunches[i]);
-      }
+      if (futureLaunches[i]) futureRes.push(futureLaunches[i]);
     }
 
     setData(futureRes);
@@ -144,9 +136,7 @@ function LaunchesData() {
     const noFutureLaunchesRes = [];
 
     for (let i = 0; i < maxResultsNumPage; i++) {
-      if (noFutureLaunches[i]) {
-        noFutureLaunchesRes.push(noFutureLaunches[i]);
-      }
+      if (noFutureLaunches[i]) noFutureLaunchesRes.push(noFutureLaunches[i]);
     }
 
     setData(noFutureLaunchesRes);
@@ -164,9 +154,7 @@ function LaunchesData() {
       let year = date.split("-")[0];
       year = year.slice(0, -1);
 
-      if (year.includes("200")) {
-        before2010.push(elem);
-      }
+      if (year.includes("200")) before2010.push(elem);
 
       return before2010;
     });
@@ -176,9 +164,7 @@ function LaunchesData() {
     const before2010Res = [];
 
     for (let i = 0; i < maxResultsNumPage; i++) {
-      if (before2010[i]) {
-        before2010Res.push(before2010[i]);
-      }
+      if (before2010[i]) before2010Res.push(before2010[i]);
     }
 
     setData(before2010Res);
@@ -370,11 +356,9 @@ function LaunchesData() {
             >
               after 2010
             </button>
-            {reset && (
-              <button className="reset" onClick={resetResults}>
+              <button className={reset ? 'reset-button-default reset-button-visible' : 'reset-button-default  reset-button-invisible'} onClick={resetResults}>
                 reset
               </button>
-            )}
           </div>
         </div>
       )}
