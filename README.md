@@ -1,8 +1,8 @@
-## SpaceX app with React
+## Data visualization web app with SpaceX API 
 
 This web app displays data about spaceX using the Open Source REST API [spaceX](https://github.com/r-spacex/SpaceX-API): it allow users to search, filter, and visualize information. The app is fully responsive and features infinite scroll.
 
-[**visit live app**](https://spacex-spacex.netlify.app/search)
+[**visit live app**](https://spacex-spacex.netlify.app/visualize)
 
 ## Features
 
@@ -15,13 +15,28 @@ This web app displays data about spaceX using the Open Source REST API [spaceX](
 ## Future improvements
 
 - add a text highlight feature for search
-- add more tests
+- improve test coverage 
 
 ## Tech
 
 **Stack**: JavaScript, React, Redux, Redux Thunk, chart.js, Jest <br/>
 **Styling**: SASS/SCSS, styled-components, postCss Normalize <br/>
 **Deployment**: Netlify
+
+## Local installation 
+
+- Clone the repository 
+
+- Install dependencies 
+```bash
+npm install
+```
+
+
+- Run the development server:
+```bash
+npm start
+```
 
 ## Visuals
 

@@ -1,34 +1,9 @@
 import React, { useEffect, useState } from "react";
+import {SearchButton, SearchInput} from './components/search';
 import Timestamp from "react-timestamp";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 
-//styled components for search
-const SearchButton = styled.button`
-  margin-left: ${props => (props.resetSearch ? "15px" : "15px")};
-  margin-right: ${props => (props.resetSearch ? "15px" : "0")};
 
-  cursor: pointer;
-  font-size: 0.9rem;
-  background: transparent;
-  border: 1px solid black;
-  padding: 5px;
-
-  @media (max-width: 400px) {
-    button.searchValue {
-      margin-top: 15px;
-    }
-  }
-`;
-
-const SearchInput = styled.input`
-  margin-left: 5px;
-  padding: 5px;
-  border: 1px solid black;
-  background-color: transparent;
-`;
-
-//LaunchesData component
 function LaunchesData() {
   const maxResultsNumPage = 8;
   const [data, setData] = useState(false);
@@ -47,8 +22,7 @@ function LaunchesData() {
   const [before2010Selected, setBefore2010Selected] = useState(false);
   const [after2010Selected, setAfter2010Selected] = useState(false);
   const [nextResults, setNextResults] = useState(maxResultsNumPage);
-
-  //fetching data in redux store
+  
   const info = useSelector(state => state.data);
 
   useEffect(() => {
